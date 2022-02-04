@@ -8,9 +8,12 @@ if [ $(echo "$1" | cut -c1) = "-" ]; then
 fi
 
 if [ $(echo "$1" | cut -c1) = "-" ] || [ "$1" = "bitcoind" ]; then
-  mkdir -p "$BITCOIN_DATA"
-  chmod 700 "$BITCOIN_DATA"
-  chown -R bitcoin "$BITCOIN_DATA"
+
+  if [ ! -d "$BITCOIN_DATA" ]; then
+    mkdir -p "$BITCOIN_DATA"
+    chmod 700 "$BITCOIN_DATA"
+    chown -R bitcoin "$BITCOIN_DATA"
+  fi
 
   echo "$0: setting data directory to $BITCOIN_DATA"
 
